@@ -15,17 +15,26 @@ class _BodyState extends State<Body> {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  "TOKOTO",
-                  style: TextStyle(
-                    fontSize: getProportionateScreenWidth(36),
-                    color: kPrimaryColor,
-                    fontWeight: FontWeight.bold,
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    "TOKOTO",
+                    style: TextStyle(
+                      fontSize: getProportionateScreenWidth(36),
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                  Text('Welcome to Tokoto, Let\'s shop!'),
+                  Image.asset(
+                      "assets/images/splash_1.png",
+                      height: getProportionateScreenWidth(265),
+                    width: getProportionateScreenWidth(235),
+                  ),
+                ],
+              ),
             ),
              ),
           Expanded(
