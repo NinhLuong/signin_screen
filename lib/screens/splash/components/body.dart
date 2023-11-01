@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signin_screen/constants.dart';
+import 'package:signin_screen/screens/splash/components/splash_containt.dart';
 import 'package:signin_screen/size_config.dart';
 
 class Body extends StatefulWidget {
@@ -8,6 +9,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Tokoto, Let’s shop!",
@@ -32,51 +34,50 @@ class _BodyState extends State<Body> {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: PageView.builder(itemBuilder: (context, index) => SplashContent(
-              img: "assets/images/splash_1.png",
-              text: 'Welcome to Tokoto, Let\'s shop!',
+            child: PageView.builder(
+              onPageChanged: (value){
+                setState(() {
+                  currentPage = value ;
+                });
+              },
+              itemCount: splashData.length,
+              itemBuilder: (context, index) => SplashContent(
+              image: splashData[index]["image"],
+              text: splashData[index]["text"],
                 ),
               )
             ),
           Expanded(
             flex: 2,
-            child: Container(
-              color: Colors.white,
-            ),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                      splashData.length,
+                      (index) => buildDot(index),
+                ),
+                )
+              ],
+            )
           )
-        ]),
+        ]
+      ),
       ),
     );
+
   }
-}
 
-class SplashContent extends StatelessWidget {
-  const SplashContent({
-    super.key, required this.text, required this.img,
-  });
-  final String text, img;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Spacer(),
-        Text(
-          "TOKOTO",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
-            color: kPrimaryColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(text),
-        Spacer(flex: 2),
-        Image.asset(
-            img,
-            height: getProportionateScreenWidth(265),
-            width: getProportionateScreenWidth(235),
-        ),
-      ],
+  AnimatedContainer buildDot(int index){
+    return AnimatedContainer(
+      duration: kAnimationDuration,
+      margin: const EdgeInsets.only(right: 5),
+      height: 6,
+      width: currentPage == index ?  20 : 6 ,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3),
+        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
+      ),
     );
   }
 }
