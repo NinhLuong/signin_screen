@@ -3,6 +3,7 @@ import 'package:signin_screen/screens/splash/components/body.dart';
 import 'package:signin_screen/size_config.dart';
 
 class SplashSreen extends StatelessWidget{
+  static String routeName = "/splash";
   const SplashSreen({super.key});
 
   @override

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:signin_screen/constants.dart';
 import 'package:signin_screen/screens/splash/components/splash_containt.dart';
 import 'package:signin_screen/size_config.dart';
+import '../../../components/default_button.dart';
+import '../../sign_in/sign_in_screen.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -49,18 +51,42 @@ class _BodyState extends State<Body> {
             ),
           Expanded(
             flex: 2,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(20)),
+              child: Column(
+                children: <Widget>[
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
                       splashData.length,
-                      (index) => buildDot(index),
-                ),
-                )
-              ],
-            )
-          )
+                          (index) => AnimatedContainer(
+                        duration: kAnimationDuration,
+                        margin: EdgeInsets.only(right: 5),
+                        height: 6,
+                        width: currentPage == index ? 20 : 6,
+                        decoration: BoxDecoration(
+                          color: currentPage == index
+                              ? kPrimaryColor
+                              : Color(0xFFD8D8D8),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Spacer(flex: 3),
+                  DefaultButton(
+                    text: "Continue",
+                    press: () {
+                      Navigator.pushNamed(context, SignInSreen.routeName);
+                    },
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
+          ),
         ]
       ),
       ),
